@@ -41,7 +41,8 @@
                 <div class="card-body">
                     <h5 class="card-title" th:text="${cocktail.strDrink}"></h5>
                     <p class="card-text">¡Disfruta este delicioso coctel!</p>
-                    <a href="#" class="btn btn-primary">Ver receta</a>
+                    <a th:href="'/teleDrink/detail/' + ${cocktail.getIdDrink()}" class="btn btn-primary">Ver receta</a>
+
                 </div>
             </div>
         </div>

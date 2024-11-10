@@ -13,12 +13,16 @@ import java.util.stream.Collectors;
 
 @Component
 public class CocktailDao {
-
+    RestTemplate restTemplate = new RestTemplate();
     public List<Cocktail> bebidaList() {
-        RestTemplate restTemplate = new RestTemplate();
         String endPoint = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail";
         ResponseEntity<CocktailResponse> response = restTemplate.getForEntity(endPoint, CocktailResponse.class);
         return response.getBody().getDrinks().stream().limit(12).collect(Collectors.toList());
+    }
+    public Cocktail cocktailDetail (String id) {
+        String endPoint = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=";
+        CocktailResponse response = restTemplate.getForObject(endPoint + id, CocktailResponse.class);
+        return response != null && !response.getDrinks().isEmpty() ? response.getDrinks().get(0) : null;
     }
 }
 
